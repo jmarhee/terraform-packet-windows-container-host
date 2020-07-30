@@ -35,3 +35,7 @@ variable "docker_restart" {
   default     = "yes"
   description = "Reboot system after Docker installation"
 }
+
+variable "count" {
+  description = "Number of windows nodes"
+}

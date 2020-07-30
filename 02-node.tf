@@ -1,11 +1,3 @@
-variable "choco" {}
-variable "docker" {}
-variable "docker_restart" {}
-variable "node_name" {}
-variable "project_id" {}
-variable "plan_primary" {}
-variable "facility" {}
-
 data "template_file" "bootstrap" {
   template = "${file("${path.module}/bootstrap.tpl")}"
 
@@ -23,9 +15,9 @@ resource "packet_device" "windows_container_node" {
   facilities       = ["${var.facility}"]
   user_data        = "${data.template_file.bootstrap.rendered}"
   tags             = ["windows-containers"]
-
-  billing_cycle = "hourly"
-  project_id    = "${var.project_id}"
+  count            = "${var.count}"
+  billing_cycle    = "hourly"
+  project_id       = "${var.project_id}"
 
   ip_address_types = ["public_ipv4", "private_ipv4"]
 }
